@@ -43,7 +43,7 @@ export default function FilmTable() {
     <>
       <DataTable<Film>
         title="Films"
-        data={films.results || []}
+        data={films?.results || []}
         columns={filmsColumns}
         onRowClick={handleViewFilm}
       />
