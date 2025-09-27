@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable, type Column } from "../components/data-table";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchFilms } from "@/app/lib/fetchFilms";
+import { useRouter } from "next/navigation";
+import { extractFilmId } from "@/app/utils/formatter";
 
 interface Film {
   filmTitle: string;
@@ -11,6 +13,7 @@ interface Film {
   producer: string;
   episodeId: number;
   character: string[];
+  url: string;
   [key: string]: unknown;
 }
 
@@ -24,8 +27,11 @@ const filmsColumns: Column<Film>[] = [
 ];
 
 export default function FilmTable() {
-  const handleViewFilm = (film: Film, index: number) => {
-    console.log(film, index);
+  const router = useRouter();
+
+  const handleViewFilm = (film: Film) => {
+    const filmId = extractFilmId(film.url);
+    router.push(`overview/films/${filmId}`);
   };
 
   const { data: films } = useQuery({

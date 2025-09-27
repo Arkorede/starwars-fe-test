@@ -2,7 +2,7 @@ export const links = [
   {
     id: 1,
     icon: "/assets/icons/overview_icon.svg",
-    href: ["/overview"],
+    href: ["/overview", "/overview/films/:id"],
     label: "Overview",
   },
   {
