@@ -15,7 +15,7 @@ type Props = {
 
 const authForm = tv({
   slots: {
-    base: "relative flex min-h-141 w-full max-w-[46%] flex-col justify-between rounded-lg border border-[#A4A7B74D] bg-white px-12 py-10",
+    base: "relative flex min-h-141 w-full max-w-[46%] flex-col justify-between rounded-lg border border-[#A4A7B74D] bg-white px-12 py-8",
     header: "flex flex-col gap-y-2",
     title: "text-2xl/8 font-semibold text-gray-400",
     subtitle: "text-base/6 font-normal text-gray-300",

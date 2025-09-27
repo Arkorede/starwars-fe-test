@@ -1,28 +1,41 @@
-"use client";
-import React from "react";
+import { DashboardModule } from "../components/modules/main-dashboard-module";
+import { QUERY_KEY } from "../constants/queryKeys";
+import { fetchFilms } from "../lib/fetchFilms";
+import { fetchPeople } from "../lib/fetchPeople";
+import { fetchSpecies } from "../lib/fetchSpecies";
+import { fetchStarships } from "../lib/fetchStarships";
+import { getQueryClient } from "../lib/get-query-client";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-import { links } from "@/app/constants/links";
-import { SideNav } from "@/app/components/components/side-nav";
-import { TopNav } from "@/app/components/components/top-nav";
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const queryClient = getQueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEY.species],
+      queryFn: fetchSpecies,
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEY.films],
+      queryFn: fetchFilms,
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEY.people],
+      queryFn: fetchPeople,
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEY.starships],
+      queryFn: fetchStarships,
+    }),
+  ]);
+
   return (
-    <div className="flex min-h-screen">
-      <SideNav
-        sideNavProps={{
-          linksProps: {
-            navLinksProps: links,
-          },
-        }}
-      />
-      <div className="flex w-[calc(100vw-17rem)] flex-1 flex-col">
-        <TopNav />
-        <main className="flex-1 overflow-auto bg-white">{children}</main>
-      </div>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <DashboardModule>{children}</DashboardModule>
+    </HydrationBoundary>
   );
 }
