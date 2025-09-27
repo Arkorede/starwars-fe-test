@@ -29,10 +29,6 @@ const inputBox = tv({
       "peer-focus:-top-2 peer-focus:left-2 peer-focus:z-10 peer-focus:scale-90 peer-focus:bg-white peer-focus:px-1 peer-focus:text-xs",
 
       "peer-valid:-top-2 peer-valid:z-10 peer-valid:scale-90 peer-valid:bg-white peer-valid:px-1 peer-valid:text-xs",
-
-      "peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:left-2 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-1 peer-[:not(:placeholder-shown)]:text-xs",
-
-      "peer-[&[placeholder]]:!-top-2 peer-[&[placeholder]]:!left-2 peer-[&[placeholder]]:!scale-90 peer-[&[placeholder]]:!bg-white peer-[&[placeholder]]:!px-1 peer-[&[placeholder]]:!text-xs",
       ,
     ],
     errorMessageStyle:
@@ -47,7 +43,6 @@ export const Input = (props: Props) => {
     name,
     label,
     type = "text",
-    placeholder,
     value,
     onValueChange,
     dataError,
@@ -62,7 +57,6 @@ export const Input = (props: Props) => {
         id={name}
         name={name}
         value={value}
-        placeholder={placeholder}
         onChange={onValueChange}
         data-error={dataError}
         required={required}
