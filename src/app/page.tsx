@@ -1,9 +1,28 @@
-import { InputAtom } from "./components/atoms/InputAtom";
+import { tv } from "tailwind-variants";
+import LoginModule from "./components/modules/login-module";
+import Image from "next/image";
 
-export default function Home() {
+const loginPage = tv({
+  slots: {
+    base: "flex font-sans",
+    left: "flex min-h-screen w-[32%] items-center justify-center bg-blue-300 px-8",
+  },
+});
+
+const { base, left } = loginPage();
+
+export default async function Login() {
   return (
-    <div className="font-inter my-20 flex items-center justify-center">
-      <InputAtom name="email" />
+    <div className={base()}>
+      <div className={left()}>
+        <Image
+          src="/assets/images/starwars.png"
+          alt="starwars"
+          width={385}
+          height={167}
+        />
+      </div>
+      <LoginModule />
     </div>
   );
 }
