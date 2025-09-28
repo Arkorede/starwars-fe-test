@@ -29,11 +29,26 @@ const navItem = tv({
   },
 });
 
+const matchesRoute = (pathname: string, route: string): boolean => {
+  if (pathname === route) return true;
+
+  if (route.includes(":")) {
+    const regexPattern = route
+      .replace(/:[^/]+/g, "[^/]+")
+      .replace(/\//g, "\\/");
+
+    const regex = new RegExp(`^${regexPattern}$`);
+    return regex.test(pathname);
+  }
+
+  return false;
+};
+
 export const NavItem = (props: Props) => {
   const pathname = usePathname();
   const clicked = Array.isArray(props.href)
-    ? props.href.includes(pathname)
-    : pathname === props.href;
+    ? props.href.some((route) => matchesRoute(pathname, route))
+    : matchesRoute(pathname, props.href);
 
   const topMargin = props.id === 2 ? "mt-8" : "mt-0";
 

@@ -19,7 +19,10 @@ interface People {
 
 const PeopleColumns: Column<People>[] = [
   { key: "name", header: "Name" },
-  { key: "birth_year", header: "Birth year" },
+  {
+    key: "birth_year",
+    header: "Birth year",
+  },
   { key: "hair_color", header: "Gender" },
   { key: "gender", header: "Hair Color" },
   { key: "height", header: "Height" },
