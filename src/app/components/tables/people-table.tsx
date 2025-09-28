@@ -5,6 +5,7 @@ import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchPeople } from "@/app/lib/fetchPeople";
 import { useRouter } from "next/navigation";
 import { extractId, formatDate } from "@/app/utils/formatter";
+import { TableSkeleton } from "../components/table-skeleton";
 
 interface People {
   name: string;
@@ -41,19 +42,23 @@ export default function PeopleTable() {
     router.push(`people/${peopleId}`);
   };
 
-  const { data: people } = useQuery({
+  const { data: people, isLoading } = useQuery({
     queryKey: [QUERY_KEY.people],
     queryFn: () => fetchPeople(),
   });
 
   return (
     <>
-      <DataTable<People>
-        title="People"
-        data={people?.results || []}
-        columns={PeopleColumns}
-        onRowClick={handleViewPeople}
-      />
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        <DataTable<People>
+          title="People"
+          data={people?.results || []}
+          columns={PeopleColumns}
+          onRowClick={handleViewPeople}
+        />
+      )}
     </>
   );
 }

@@ -5,6 +5,7 @@ import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchFilms } from "@/app/lib/fetchFilms";
 import { useRouter } from "next/navigation";
 import { extractId, formatDate } from "@/app/utils/formatter";
+import { TableSkeleton } from "../components/table-skeleton";
 
 interface Film {
   filmTitle: string;
@@ -38,19 +39,23 @@ export default function FilmTable() {
     router.push(`overview/films/${filmId}`);
   };
 
-  const { data: films } = useQuery({
+  const { data: films, isLoading } = useQuery({
     queryKey: [QUERY_KEY.films],
     queryFn: () => fetchFilms(),
   });
 
   return (
     <>
-      <DataTable<Film>
-        title="Films"
-        data={films?.results || []}
-        columns={filmsColumns}
-        onRowClick={handleViewFilm}
-      />
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        <DataTable<Film>
+          title="Films"
+          data={films?.results || []}
+          columns={filmsColumns}
+          onRowClick={handleViewFilm}
+        />
+      )}
     </>
   );
 }

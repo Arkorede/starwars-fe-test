@@ -5,6 +5,7 @@ import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchSpecies } from "@/app/lib/fetchSpecies";
 import { useRouter } from "next/navigation";
 import { extractId, formatDate } from "@/app/utils/formatter";
+import { TableSkeleton } from "../components/table-skeleton";
 
 interface Specie {
   name: string;
@@ -38,19 +39,23 @@ export default function SpeciesTable() {
     router.push(`species/${specieId}`);
   };
 
-  const { data: species } = useQuery({
+  const { data: species, isLoading } = useQuery({
     queryKey: [QUERY_KEY.species],
     queryFn: () => fetchSpecies(),
   });
 
   return (
     <>
-      <DataTable<Specie>
-        title="Species"
-        data={species?.results || []}
-        columns={SpeciesColumns}
-        onRowClick={handleViewSpecies}
-      />
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        <DataTable<Specie>
+          title="Species"
+          data={species?.results || []}
+          columns={SpeciesColumns}
+          onRowClick={handleViewSpecies}
+        />
+      )}
     </>
   );
 }

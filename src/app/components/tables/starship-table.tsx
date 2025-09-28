@@ -5,6 +5,7 @@ import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { useRouter } from "next/navigation";
 import { extractId } from "@/app/utils/formatter";
 import { fetchStarships } from "@/app/lib/fetchStarships";
+import { TableSkeleton } from "../components/table-skeleton";
 
 interface Starship {
   name: string;
@@ -38,19 +39,23 @@ export default function StarshipTable() {
     router.push(`/starships/${starshipId}`);
   };
 
-  const { data: starships } = useQuery({
+  const { data: starships, isLoading } = useQuery({
     queryKey: [QUERY_KEY.starships],
     queryFn: () => fetchStarships(),
   });
 
   return (
     <>
-      <DataTable<Starship>
-        title="Starships"
-        data={starships?.results || []}
-        columns={StarshipColumns}
-        onRowClick={handleViewShip}
-      />
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        <DataTable<Starship>
+          title="Starships"
+          data={starships?.results || []}
+          columns={StarshipColumns}
+          onRowClick={handleViewShip}
+        />
+      )}
     </>
   );
 }
