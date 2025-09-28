@@ -9,12 +9,17 @@ import { ChevronLeft } from "lucide-react";
 const topNav = tv({
   slots: {
     base: "sticky top-0 z-40 flex h-18 w-full items-center justify-between bg-white pr-20 pl-6 shadow-[0_2px_6px_0px_rgba(229,229,229,0.3)]",
-    left: "flex w-[85%] items-center justify-between border-r border-gray-50 px-8",
+    left: "flex w-[85%] items-center justify-end border-r border-gray-50 pr-8",
     right: "flex flex-1 items-center justify-between pl-8",
   },
+  variants: {
+    isBackButton: {
+      true: {
+        left: "justify-between px-8",
+      },
+    },
+  },
 });
-
-const { base, left, right } = topNav();
 
 export const TopNav = () => {
   const pathname = usePathname();
@@ -31,6 +36,8 @@ export const TopNav = () => {
 
     return isDetailPage && segments.length >= 2;
   };
+
+  const { base, left, right } = topNav({ isBackButton: showBackButton() });
 
   const handleBack = () => {
     router.back();

@@ -23,7 +23,11 @@ const StarshipColumns: Column<Starship>[] = [
   { key: "starship_class", header: "Director" },
   { key: "passengers", header: "Producer" },
   { key: "length", header: "Episode ID" },
-  { key: "characters", header: "Character" },
+  {
+    key: "characters",
+    header: "Character",
+    render: () => "https://swapi.dev/api/people",
+  },
 ];
 
 export default function StarshipTable() {

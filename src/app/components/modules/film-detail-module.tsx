@@ -4,6 +4,7 @@ import { fetchFilms } from "@/app/lib/fetchFilms";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import DetailCard from "../components/detail-card";
+import { formatDate } from "@/app/utils/formatter";
 
 export const FilmDetailModule = () => {
   const params = useParams();
@@ -22,7 +23,7 @@ export const FilmDetailModule = () => {
       details={[
         `Director: ${filmDetail?.director}`,
         `Producer: ${filmDetail?.producer}`,
-        `Release Date: ${filmDetail?.release_date}`,
+        `Release Date: ${formatDate(filmDetail?.release_date)}`,
       ]}
     />
   );

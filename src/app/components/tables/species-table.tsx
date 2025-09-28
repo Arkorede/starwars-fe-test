@@ -4,7 +4,7 @@ import { DataTable, type Column } from "../components/data-table";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchSpecies } from "@/app/lib/fetchSpecies";
 import { useRouter } from "next/navigation";
-import { extractId } from "@/app/utils/formatter";
+import { extractId, formatDate } from "@/app/utils/formatter";
 
 interface Specie {
   name: string;
@@ -23,7 +23,11 @@ const SpeciesColumns: Column<Specie>[] = [
   { key: "eye_colors", header: "Eye colors" },
   { key: "hair_colors", header: "Hair Color" },
   { key: "average_height", header: "Height" },
-  { key: "created", header: "Created" },
+  {
+    key: "created",
+    header: "Created",
+    render: (value: unknown) => formatDate(String(value), "short"),
+  },
 ];
 
 export default function SpeciesTable() {

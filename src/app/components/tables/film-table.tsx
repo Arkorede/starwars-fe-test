@@ -4,7 +4,7 @@ import { DataTable, type Column } from "../components/data-table";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchFilms } from "@/app/lib/fetchFilms";
 import { useRouter } from "next/navigation";
-import { extractId } from "@/app/utils/formatter";
+import { extractId, formatDate } from "@/app/utils/formatter";
 
 interface Film {
   filmTitle: string;
@@ -19,7 +19,11 @@ interface Film {
 
 const filmsColumns: Column<Film>[] = [
   { key: "title", header: "Film Title" },
-  { key: "release_date", header: "Release Date" },
+  {
+    key: "release_date",
+    header: "Release Date",
+    render: (value: unknown) => formatDate(String(value), "short"),
+  },
   { key: "director", header: "Director" },
   { key: "producer", header: "Producer" },
   { key: "episode_id", header: "Episode ID" },

@@ -4,7 +4,7 @@ import { DataTable, type Column } from "../components/data-table";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchPeople } from "@/app/lib/fetchPeople";
 import { useRouter } from "next/navigation";
-import { extractId } from "@/app/utils/formatter";
+import { extractId, formatDate } from "@/app/utils/formatter";
 
 interface People {
   name: string;
@@ -23,7 +23,11 @@ const PeopleColumns: Column<People>[] = [
   { key: "hair_color", header: "Gender" },
   { key: "gender", header: "Hair Color" },
   { key: "height", header: "Height" },
-  { key: "created", header: "Created" },
+  {
+    key: "created",
+    header: "Created",
+    render: (value: unknown) => formatDate(String(value), "short"),
+  },
 ];
 
 export default function PeopleTable() {
