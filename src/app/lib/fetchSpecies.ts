@@ -1,8 +1,9 @@
 "use server";
 import axios from "axios";
 
-export const fetchSpecies = async () => {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/species`;
+export const fetchSpecies = async (id?: string | number) => {
+  const baseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/species`;
+  const url = id ? `${baseUrl}/${id}` : baseUrl;
 
   try {
     const { data } = await axios.get(url);

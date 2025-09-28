@@ -1,3 +1,9 @@
+import SpeciesModule from "@/app/components/modules/species-module";
+
 export default function SpeciesPage() {
-  return <div>Species</div>;
+  return (
+    <>
+      <SpeciesModule />
+    </>
+  );
 }

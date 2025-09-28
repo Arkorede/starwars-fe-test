@@ -17,19 +17,19 @@ export default async function DashboardLayout({
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.species],
-      queryFn: fetchSpecies,
+      queryFn: () => fetchSpecies(),
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.films],
-      queryFn: () => fetchFilms,
+      queryFn: () => fetchFilms(),
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.people],
-      queryFn: () => fetchPeople,
+      queryFn: () => fetchPeople(),
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.starships],
-      queryFn: () => fetchStarships,
+      queryFn: () => fetchStarships(),
     }),
   ]);
 
