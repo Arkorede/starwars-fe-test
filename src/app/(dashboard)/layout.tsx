@@ -21,15 +21,15 @@ export default async function DashboardLayout({
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.films],
-      queryFn: fetchFilms,
+      queryFn: () => fetchFilms,
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.people],
-      queryFn: fetchPeople,
+      queryFn: () => fetchPeople,
     }),
     queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.starships],
-      queryFn: fetchStarships,
+      queryFn: () => fetchStarships,
     }),
   ]);
 
