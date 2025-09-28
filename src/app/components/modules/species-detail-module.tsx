@@ -18,7 +18,7 @@ export const SpeciesDetailModule = () => {
   return (
     <DetailCard
       image="/assets/images/specie-detail.png"
-      title={specieDetail?.title}
+      title={specieDetail?.name}
       details={[
         `Designation: ${specieDetail?.designation}`,
         `Language: ${specieDetail?.language}`,

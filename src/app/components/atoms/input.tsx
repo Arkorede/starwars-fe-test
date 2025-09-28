@@ -1,3 +1,5 @@
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import { tv } from "tailwind-variants";
 
 type Props = {
@@ -9,9 +11,10 @@ type Props = {
   inputClass?: string;
   onValueChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   dataError?: string;
-  // handleBlur?: (e: React.FocusEvent<FieldType>) => void;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   required?: boolean;
+  isError?: boolean;
 };
 
 const inputBox = tv({
@@ -31,12 +34,26 @@ const inputBox = tv({
       "peer-valid:-top-2 peer-valid:z-10 peer-valid:scale-90 peer-valid:bg-white peer-valid:px-1 peer-valid:text-xs",
       ,
     ],
-    errorMessageStyle:
-      "text-xs font-medium text-red-300 peer-user-valid:hidden empty:hidden",
+    errorMessageStyle: "text-xs font-medium text-red-300 empty:hidden",
+    toggleButton: [
+      "absolute top-1/2 right-3 z-20 -translate-y-1/2",
+      "flex h-5 w-5 items-center justify-center",
+      "text-gray-400 transition-colors hover:text-gray-600",
+      "cursor-pointer select-none",
+    ],
+  },
+  variants: {
+    isError: {
+      true: {
+        input: "border-red-500 focus:border-red-500",
+        toggleButton: "top-6",
+      },
+      false: {
+        input: "focus:border-primary border-gray-200",
+      },
+    },
   },
 });
-
-const { base, input, labelStyle, errorMessageStyle } = inputBox();
 
 export const Input = (props: Props) => {
   const {
@@ -48,12 +65,32 @@ export const Input = (props: Props) => {
     dataError,
     errorMessage,
     required = true,
+    isError,
+    handleBlur,
   } = props;
+
+  const { base, input, labelStyle, errorMessageStyle, toggleButton } = inputBox(
+    { isError },
+  );
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const isPasswordField = type === "password";
+
+  const inputType = isPasswordField
+    ? showPassword
+      ? "text"
+      : "password"
+    : type;
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className={base()}>
       <input
-        type={type}
+        type={inputType}
         id={name}
         name={name}
         value={value}
@@ -61,8 +98,22 @@ export const Input = (props: Props) => {
         data-error={dataError}
         required={required}
         className={input()}
+        onBlur={handleBlur}
       />
       <label className={labelStyle()}>{label}</label>
+
+      {isPasswordField && (
+        <button
+          type="button"
+          className={toggleButton()}
+          onClick={togglePasswordVisibility}
+          tabIndex={-1}
+          aria-label={showPassword ? "Hide password" : "Show password"}
+        >
+          {showPassword ? <Eye /> : <EyeOff />}
+        </button>
+      )}
+
       <span className={errorMessageStyle()}>{errorMessage}</span>
     </div>
   );

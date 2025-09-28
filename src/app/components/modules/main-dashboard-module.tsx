@@ -8,7 +8,7 @@ export const DashboardModule = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen font-sans">
       <SideNav
         sideNavProps={{
           linksProps: {

@@ -1,15 +1,21 @@
 "use client";
-import { useState } from "react";
 import { tv } from "tailwind-variants";
 import { AuthForm } from "../components/auth-form";
+import useAuth from "@/app/hooks/useAuth";
 
 const loginModule = tv({
   base: "flex h-full min-h-screen w-full flex-col items-center justify-center gap-y-7",
 });
 
 const LoginModule = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    formData,
+    handleInputChange,
+    touched,
+    errors,
+    handleBlur,
+    handleSubmit,
+  } = useAuth();
 
   return (
     <div className={loginModule()}>
@@ -19,26 +25,24 @@ const LoginModule = () => {
         emailInputProps={{
           name: "email",
           type: "email",
-          value: email,
-          placeholder: "",
-          onValueChange: (e) => setEmail(e.target.value),
+          value: formData.email,
+          onValueChange: handleInputChange("email"),
           label: "Email Address",
-          // handleBlur,
-          dataError: "Please enter a valid email address",
-          // errorMessage: errors.email,
+          handleBlur: handleBlur("email"),
+          errorMessage: touched.email ? errors.email : "",
+          isError: touched.email && !!errors.email,
         }}
         passwordInputProps={{
           name: "password",
           type: "password",
-          value: password,
-          onValueChange: (e) => setPassword(e.target.value),
-          placeholder: "***********",
+          value: formData.password,
+          onValueChange: handleInputChange("password"),
           label: "Password",
-          // handleBlur,
-          // errorMessage: errors.password,
-          dataError: "Please enter your password",
+          handleBlur: handleBlur("password"),
+          errorMessage: touched.password ? errors.password : "",
+          isError: touched.password && !!errors.password,
         }}
-        // onSubmit={(e) => handleSubmit(e, handleLogin)}
+        onSubmit={handleSubmit}
         buttonProps={{
           type: "submit",
           label: "Login",

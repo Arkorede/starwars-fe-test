@@ -18,7 +18,7 @@ export const PeopleDetailModule = () => {
   return (
     <DetailCard
       image="/assets/images/people-detail.png"
-      title={peopleDetail?.title}
+      title={peopleDetail?.name}
       details={[
         `Gender: ${peopleDetail?.gender}`,
         `Year of Birth: ${peopleDetail?.birth_year}`,

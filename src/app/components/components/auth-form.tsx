@@ -10,7 +10,6 @@ type Props = {
   passwordInputProps: React.ComponentProps<typeof Input>;
   buttonProps: React.ComponentProps<typeof Button>;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  formRef?: React.RefObject<HTMLFormElement | null>;
 };
 
 const authForm = tv({
@@ -38,12 +37,7 @@ export const AuthForm = (props: Props) => {
       </div>
 
       <div className="space-y-8">
-        <form
-          className={form()}
-          onSubmit={props.onSubmit}
-          noValidate
-          ref={props.formRef}
-        >
+        <form className={form()} onSubmit={props.onSubmit} noValidate>
           <Input {...props.emailInputProps} />
           <Input {...props.passwordInputProps} />
           <Button {...props.buttonProps} />

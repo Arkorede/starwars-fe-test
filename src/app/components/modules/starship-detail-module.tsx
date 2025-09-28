@@ -18,7 +18,7 @@ export const StarshipDetailModule = () => {
   return (
     <DetailCard
       image="/assets/images/starship-detail.png"
-      title={starshipDetail?.title}
+      title={starshipDetail?.name}
       details={[
         `Model: ${starshipDetail?.model}`,
         `Passenger: ${starshipDetail?.passengers}`,
