@@ -12,19 +12,19 @@ export const MetricCardsList = () => {
     queries: [
       {
         queryKey: [QUERY_KEY.species],
-        queryFn: fetchSpecies,
+        queryFn: () => fetchSpecies(),
       },
       {
         queryKey: [QUERY_KEY.people],
-        queryFn: fetchPeople,
+        queryFn: () => fetchPeople(),
       },
       {
         queryKey: [QUERY_KEY.starships],
-        queryFn: fetchStarships,
+        queryFn: () => fetchStarships(),
       },
       {
         queryKey: [QUERY_KEY.films],
-        queryFn: fetchFilms,
+        queryFn: () => fetchFilms(),
       },
     ],
   });
