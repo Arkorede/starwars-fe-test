@@ -4,7 +4,7 @@ import { DataTable, type Column } from "../components/data-table";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
 import { fetchFilms } from "@/app/lib/fetchFilms";
 import { useRouter } from "next/navigation";
-import { extractFilmId } from "@/app/utils/formatter";
+import { extractId } from "@/app/utils/formatter";
 
 interface Film {
   filmTitle: string;
@@ -30,13 +30,13 @@ export default function FilmTable() {
   const router = useRouter();
 
   const handleViewFilm = (film: Film) => {
-    const filmId = extractFilmId(film.url);
+    const filmId = extractId(film.url);
     router.push(`overview/films/${filmId}`);
   };
 
   const { data: films } = useQuery({
     queryKey: [QUERY_KEY.films],
-    queryFn: fetchFilms,
+    queryFn: () => fetchFilms(),
   });
 
   return (

@@ -1,4 +1,4 @@
-export const extractFilmId = (url: string): string => {
-  const match = url.match(/\/films\/(\d+)\//);
-  return match ? match[1] : "";
-};
+export function extractId(url: string): string | null {
+  const match = url.match(/\/(\d+)\/?$/);
+  return match ? match[1] : null;
+}

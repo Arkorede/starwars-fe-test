@@ -1,6 +1,6 @@
 "use client";
 import { QUERY_KEY } from "@/app/constants/queryKeys";
-import { fetchFilmbyId } from "@/app/lib/fetchFilmbyId";
+import { fetchFilms } from "@/app/lib/fetchFilms";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import DetailCard from "../components/detail-card";
@@ -11,7 +11,7 @@ export const FilmDetailModule = () => {
 
   const { data: filmDetail } = useQuery({
     queryKey: [QUERY_KEY.filmDetail, filmId],
-    queryFn: () => fetchFilmbyId(filmId),
+    queryFn: () => fetchFilms(filmId),
     enabled: !!filmId,
   });
 

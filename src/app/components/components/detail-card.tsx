@@ -4,7 +4,7 @@ import Image from "next/image";
 const detailCard = tv({
   slots: {
     base: "flex gap-x-6",
-    title: "text-5xl/6 font-bold text-black uppercase",
+    title: "text-5xl/6 font-bold text-black capitalize",
     subTitle: "mt-7 space-y-1 text-base/6 font-medium text-gray-500",
   },
 });

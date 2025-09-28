@@ -4,4 +4,7 @@ export enum QUERY_KEY {
   species = "species",
   people = "people",
   filmDetail = "film-detail",
+  starshipDetail = "starship-detail",
+  peopleDetail = "people-detail",
+  speciesDetail = "species-detail",
 }

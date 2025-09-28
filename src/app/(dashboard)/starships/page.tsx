@@ -1,5 +1,9 @@
-import React from "react";
+import { StarshipsModule } from "@/app/components/modules/starships-module";
 
 export default function StarshipsPage() {
-  return <div>Starships</div>;
+  return (
+    <>
+      <StarshipsModule />
+    </>
+  );
 }
